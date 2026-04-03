@@ -33,5 +33,22 @@
     <button type="submit">Создать</button>
 </form>
 
+<hr>
+
+<h2>Все задачи</h2>
+
+@if($tasks->count())
+    @foreach($tasks as $task)
+        <div style="border:1px solid #ccc; padding:10px; margin-bottom:10px;">
+            <h3>{{ $task->title }}</h3>
+            <p>{{ $task->description }}</p>
+            <p><strong>Статус:</strong> {{ $task->status }}</p>
+            <p><strong>Создано:</strong> {{ $task->created_at }}</p>
+        </div>
+    @endforeach
+@else
+    <p>Пока нет задач.</p>
+@endif
+
 </body>
 </html>
