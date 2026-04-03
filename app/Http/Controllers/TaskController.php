@@ -9,11 +9,25 @@ use App\Http\Requests\StoreTaskRequest;
 class TaskController extends Controller
 {
     // 📄 Список задач
-    public function index()
-    {
-        $tasks = Task::latest()->get();
-        return view('tasks.index', compact('tasks'));
-    }
+  public function index(Request $request)
+  {
+      $query = Task::query();
+
+      // Фильтр по статусу
+      if ($request->has('status') && $request->status != '') {
+          $query->where('status', $request->status);
+      }
+
+      // Поиск по названию
+      if ($request->has('search') && $request->search != '') {
+          $query->where('title', 'like', '%' . $request->search . '%');
+      }
+
+      // Пагинация (10 задач на страницу)
+      $tasks = $query->latest()->paginate(10);
+
+      return view('tasks.index', compact('tasks'));
+  }
 
 public function store(StoreTaskRequest $request)
 {
