@@ -1,7 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\TaskController;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// главная страница = список задач
+Route::get('/', [TaskController::class, 'index']);
+
+// полный CRUD
+Route::resource('tasks', TaskController::class);
