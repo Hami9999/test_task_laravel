@@ -3,8 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TaskController;
 
-// главная страница = список задач
-Route::get('/', [TaskController::class, 'index']);
+// Главная страница = список задач с формой создания
+Route::get('/', [TaskController::class, 'index'])->name('tasks.index');
 
-// полный CRUD
+// Ресурсный CRUD, но исключаем create и edit
 Route::resource('tasks', TaskController::class);
